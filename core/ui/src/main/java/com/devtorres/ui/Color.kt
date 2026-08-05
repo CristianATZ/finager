@@ -1,4 +1,4 @@
-package com.devtorres.finager.ui.theme
+package com.devtorres.ui
 
 import androidx.compose.ui.graphics.Color
 

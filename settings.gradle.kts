@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "finager"
 include(":app")
- 
+include(":core:ui")
+include(":feature:onboarding")
+include(":core:data")
+include(":core:common")
+include(":core:domain")

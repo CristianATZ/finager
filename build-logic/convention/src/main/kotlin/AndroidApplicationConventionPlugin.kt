@@ -20,6 +20,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 defaultConfig {
                     minSdk = AndroidConfig.MIN_SDK
                     targetSdk = AndroidConfig.TARGET_SDK
+                    versionCode = AndroidConfig.VERSION_CODE
+                    versionName = AndroidConfig.VERSION_NAME
                 }
                 configureJavaCompatibility()
             }

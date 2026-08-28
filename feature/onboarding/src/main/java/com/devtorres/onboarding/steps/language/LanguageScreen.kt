@@ -12,9 +12,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devtorres.domain.AppLanguage
+import com.devtorres.onboarding.R
 import com.devtorres.ui.appearance.exonym
 import com.devtorres.ui.components.cards.SelectableCard
 
@@ -31,7 +33,7 @@ internal fun LanguageScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Tu idioma",
+            text = stringResource(R.string.onboarding_language_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold
         )
@@ -39,7 +41,7 @@ internal fun LanguageScreen(
         Spacer(modifier = Modifier.size(4.dp))
 
         Text(
-            text = "Selecciona el idioma en el que quieres usar la aplicación.",
+            text = stringResource(R.string.onboarding_language_subtitle),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
         )
@@ -59,7 +61,7 @@ internal fun LanguageScreen(
                         )
                     },
                     title = mLanguage.endonym,
-                    subtitle = mLanguage.exonym(),
+                    subtitle = stringResource(mLanguage.exonym()),
                     selected = language == mLanguage,
                     focusedColor = MaterialTheme.colorScheme.secondary,
                     onFocusedColor = MaterialTheme.colorScheme.onSecondary,

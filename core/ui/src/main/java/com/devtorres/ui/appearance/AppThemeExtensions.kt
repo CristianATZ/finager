@@ -6,6 +6,7 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.ui.graphics.Color
 import com.devtorres.domain.AppTheme
+import com.devtorres.ui.R
 
 fun AppTheme.icon() = when(this) {
     AppTheme.LIGHT -> Icons.Outlined.LightMode
@@ -25,16 +26,16 @@ fun AppTheme.iconTint() = when(this) {
     AppTheme.SYSTEM -> Color(0xFFFFFFFF)
 }
 
-fun AppTheme.title() = when(this) {
-    AppTheme.LIGHT -> "Claro"
-    AppTheme.DARK -> "Oscuro"
-    AppTheme.SYSTEM -> "Sistema"
+fun AppTheme.title(): Int = when(this) {
+    AppTheme.LIGHT -> R.string.theme_light_title
+    AppTheme.DARK -> R.string.theme_dark_title
+    AppTheme.SYSTEM -> R.string.theme_system_title
 }
 
-fun AppTheme.subtitle() = when(this) {
-    AppTheme.LIGHT -> "Fondo luminoso"
-    AppTheme.DARK -> "Fondo oscuro"
-    AppTheme.SYSTEM -> "Se adapta al equipo"
+fun AppTheme.subtitle(): Int = when(this) {
+    AppTheme.LIGHT -> R.string.theme_light_subtitle
+    AppTheme.DARK -> R.string.theme_dark_subtitle
+    AppTheme.SYSTEM -> R.string.theme_system_subtitle
 }
 
 fun AppTheme.subtitleColor() = when(this) {

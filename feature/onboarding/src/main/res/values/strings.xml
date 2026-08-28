@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Intro screen -->
+    <string name="onboarding_intro_title">Take control of your expenses</string>
+    <string name="onboarding_intro_subtitle">Let\'s set up your account in a few steps. Less than a minute and you\'ll be ready to log your first expense.</string>
+
+    <!-- Username screen -->
+    <string name="onboarding_username_title">What should we call you?</string>
+    <string name="onboarding_username_subtitle">This will be your username inside the app.</string>
+    <string name="onboarding_username_field_supporting">You won\'t be able to change it later.</string>
+    <string name="onboarding_username_label">Username</string>
+    <string name="onboarding_username_placeholder">e.g. jane_saves</string>
+
+    <!-- Currency screen -->
+    <string name="onboarding_currency_title">Choose your currency</string>
+    <string name="onboarding_currency_subtitle">We\'ll use this currency to show all your balances and expenses.</string>
+
+    <!-- Language screen -->
+    <string name="onboarding_language_title">Your language</string>
+    <string name="onboarding_language_subtitle">Select the language you want to use the app in.</string>
+
+    <!-- Theme screen -->
+    <string name="onboarding_theme_title">Appearance</string>
+    <string name="onboarding_theme_subtitle">How do you prefer to see the app? You can change it anytime.</string>
+
+    <!-- Biometrics screen -->
+    <string name="onboarding_biometrics_title">Protect your information</string>
+    <string name="onboarding_biometrics_subtitle">Turn on biometric unlock to protect your information.</string>
+    <string name="onboarding_biometrics_enabled">Biometric access is on. You\'ll use your fingerprint or face to sign in.</string>
+    <string name="onboarding_biometrics_disabled">Without biometrics, anyone can see your information.</string>
+
+    <!-- Summary screen -->
+    <string name="onboarding_summary_title">All set, %1$s!</string>
+    <string name="onboarding_summary_subtitle">Review your settings before you start.</string>
+    <string name="onboarding_summary_username">Username</string>
+    <string name="onboarding_summary_currency">Currency</string>
+    <string name="onboarding_summary_language">Language</string>
+    <string name="onboarding_summary_theme">Theme</string>
+    <string name="onboarding_summary_biometrics">Biometrics</string>
+
+    <!-- Saving Screen -->
+    <string name="onboarding_saving_title">Saving your information</string>
+    <string name="onboarding_saving_subtitle">This might take a moment. Thanks %1$s for using the app :)</string>
+    <string name="onboarding_saving_button_go_home">Go home</string>
+</resources>

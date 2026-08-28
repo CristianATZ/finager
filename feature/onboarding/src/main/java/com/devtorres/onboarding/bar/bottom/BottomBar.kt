@@ -36,10 +36,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devtorres.onboarding.OnboardingState
 import com.devtorres.onboarding.OnboardingStep
+import com.devtorres.ui.R
 
 @Composable
 internal fun BottomBar(
@@ -53,9 +55,9 @@ internal fun BottomBar(
     val buttonText by remember(step) {
         derivedStateOf {
             when (step) {
-                OnboardingStep.START -> "Empezar"
-                OnboardingStep.SUMMARY -> "Terminar"
-                else -> "Siguiente"
+                OnboardingStep.START -> R.string.common_start
+                OnboardingStep.SUMMARY -> R.string.common_finish
+                else -> R.string.common_next
             }
         }
     }
@@ -139,7 +141,7 @@ internal fun BottomBar(
                             label = "nextButtonLabel"
                         ) { text ->
                             Text(
-                                text = text,
+                                text = stringResource(buttonText),
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontWeight = FontWeight.SemiBold
                             )

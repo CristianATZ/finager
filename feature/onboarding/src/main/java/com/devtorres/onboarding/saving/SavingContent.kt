@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.devtorres.onboarding.R
 import com.devtorres.ui.components.loading.DotsLoading
 import com.devtorres.ui.theme.onGreen
 
@@ -48,7 +50,7 @@ internal fun SavingOverlayContent(
         Spacer(modifier = Modifier.weight(1f))
 
         Text(
-            text = "Guardando la información",
+            text = stringResource(R.string.onboarding_saving_title),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.ExtraBold,
             textAlign = TextAlign.Center,
@@ -56,7 +58,7 @@ internal fun SavingOverlayContent(
         )
 
         Text(
-            text = "Esto puede tomar un momento. Gracias $username por usar la app :)",
+            text = stringResource(R.string.onboarding_saving_subtitle, username),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = contentColor.copy(alpha = 0.75f),
@@ -84,7 +86,7 @@ internal fun SavingOverlayContent(
                 .height(48.dp)
                 .fillMaxWidth()
         ) {
-            Text("Ir al inicio")
+            Text(text = stringResource(R.string.onboarding_saving_button_go_home))
         }
     }
 }

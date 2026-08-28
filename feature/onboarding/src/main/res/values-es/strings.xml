@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Intro screen -->
+    <string name="onboarding_intro_title">Toma el control de tus gastos</string>
+    <string name="onboarding_intro_subtitle">Vamos a configurar tu cuenta en unos pocos pasos. Menos de un minuto y estarás listo para registrar tu primer gasto.</string>
+
+    <!-- Username screen -->
+    <string name="onboarding_username_title">¿Cómo te llamamos?</string>
+    <string name="onboarding_username_subtitle">Este será tu nombre de usuario dentro de la app.</string>
+    <string name="onboarding_username_field_supporting">No podrás cambiarlo más tarde.</string>
+    <string name="onboarding_username_label">Nombre de usuario</string>
+    <string name="onboarding_username_placeholder">ej. ana_ahorra</string>
+
+    <!-- Currency screen -->
+    <string name="onboarding_currency_title">Elige tu moneda</string>
+    <string name="onboarding_currency_subtitle">Usaremos esta divisa para mostrar todos tus balances y gastos.</string>
+
+    <!-- Language screen -->
+    <string name="onboarding_language_title">Tu idioma</string>
+    <string name="onboarding_language_subtitle">Selecciona el idioma en el que quieres usar la aplicación.</string>
+
+    <!-- Theme screen -->
+    <string name="onboarding_theme_title">Apariencia</string>
+    <string name="onboarding_theme_subtitle">¿Cómo prefieres ver la app? Puedes ajustarlo cuando quieras.</string>
+
+    <!-- Biometrics screen -->
+    <string name="onboarding_biometrics_title">Protege tu información</string>
+    <string name="onboarding_biometrics_subtitle">Activa el desbloqueo biométrico para proteger tu información.</string>
+    <string name="onboarding_biometrics_enabled">El acceso biométrico está activado. Usarás tu huella o rostro para entrar.</string>
+    <string name="onboarding_biometrics_disabled">Sin biometría cualquier persona puede ver tu información.</string>
+
+    <!-- Summary screen -->
+    <string name="onboarding_summary_title">¡Todo listo, %1$s!</string>
+    <string name="onboarding_summary_subtitle">Revisa tu configuración antes de empezar.</string>
+    <string name="onboarding_summary_username">Usuario</string>
+    <string name="onboarding_summary_currency">Moneda</string>
+    <string name="onboarding_summary_language">Idioma</string>
+    <string name="onboarding_summary_theme">Tema</string>
+    <string name="onboarding_summary_biometrics">Biometricos</string>
+
+    <!-- Saving Screen -->
+    <string name="onboarding_saving_title">Guardando la información</string>
+    <string name="onboarding_saving_subtitle">Esto puede tomar un momento. Gracias %1$s por usar la app :)</string>
+    <string name="onboarding_saving_button_go_home">Ir al inicio</string>
+</resources>

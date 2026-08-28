@@ -33,12 +33,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.devtorres.onboarding.R
 import com.devtorres.ui.components.cards.CustomOutlinedCard
 
 @Composable
-internal fun BiometricsActivation(
+internal fun BiometricsActivationCard(
     modifier: Modifier = Modifier,
     biometricsEnabled: Boolean,
     onBiometricsChange: (Boolean) -> Unit
@@ -117,7 +119,7 @@ internal fun BiometricsActivation(
                 targetState = biometricsEnabled
             ) {
                 Text(
-                    text = if(it) "El acceso biométrico está activado. Usarás tu huella o rostro para entrar." else "Sin biometría cualquier persona puede ver tu información.",
+                    text = if(it) stringResource(R.string.onboarding_biometrics_enabled) else stringResource(R.string.onboarding_biometrics_disabled),
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
                     modifier = Modifier

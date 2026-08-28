@@ -12,8 +12,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.devtorres.onboarding.R
 
 @Composable
 internal fun BiometricsScreen(
@@ -28,7 +30,7 @@ internal fun BiometricsScreen(
             .fillMaxSize()
     ) {
         Text(
-            text = "Protege tu información",
+            text = stringResource(R.string.onboarding_biometrics_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold
         )
@@ -36,14 +38,14 @@ internal fun BiometricsScreen(
         Spacer(modifier = Modifier.size(4.dp))
 
         Text(
-            text = "Activa el desbloqueo biométrico para proteger tu información.",
+            text = stringResource(R.string.onboarding_biometrics_subtitle),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
         )
 
         Spacer(modifier = Modifier.size(32.dp))
 
-        BiometricsActivation(
+        BiometricsActivationCard(
             modifier = Modifier.fillMaxWidth(),
             biometricsEnabled = biometrics,
             onBiometricsChange = onBiometricsChange

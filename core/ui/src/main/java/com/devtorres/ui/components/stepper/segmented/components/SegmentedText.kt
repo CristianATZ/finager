@@ -11,7 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.devtorres.ui.R
 
 @Composable
 fun SegmentedText(
@@ -21,7 +23,7 @@ fun SegmentedText(
 ) {
     Row(modifier = modifier) {
         Text(
-            text = "PASO ",
+            text = stringResource(R.string.common_step_prefix).uppercase(),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
@@ -41,7 +43,7 @@ fun SegmentedText(
             label = "stepNumber"
         ) { step ->
             Text(
-                text = "${step + 1}",
+                text = " ${step + 1} ",
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
@@ -49,7 +51,7 @@ fun SegmentedText(
         }
 
         Text(
-            text = " DE $steps",
+            text = stringResource(R.string.common_step_suffix, steps).uppercase(),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)

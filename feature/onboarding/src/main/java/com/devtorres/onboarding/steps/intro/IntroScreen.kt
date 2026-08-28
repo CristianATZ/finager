@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.devtorres.onboarding.R
 
 @Composable
 internal fun IntroScreen() {
@@ -26,7 +28,7 @@ internal fun IntroScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Toma el control de tus gastos",
+                text = stringResource(R.string.onboarding_intro_title),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.ExtraBold,
                 textAlign = TextAlign.Center,
@@ -34,7 +36,7 @@ internal fun IntroScreen() {
             )
 
             Text(
-                text = "Vamos a configurar tu cuenta en unos pocos pasos. Menos de un minuto y estarás listo para registrar tu primer gasto.",
+                text = stringResource(R.string.onboarding_intro_subtitle),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),

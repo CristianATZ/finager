@@ -13,9 +13,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devtorres.domain.AppTheme
+import com.devtorres.onboarding.R
 import com.devtorres.onboarding.components.theme.ThemeOptionCard
 import com.devtorres.ui.appearance.icon
 import com.devtorres.ui.appearance.iconBackgroundColor
@@ -37,7 +39,7 @@ internal fun ThemeScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Apariencia",
+            text = stringResource(R.string.onboarding_theme_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold
         )
@@ -45,7 +47,7 @@ internal fun ThemeScreen(
         Spacer(modifier = Modifier.size(4.dp))
 
         Text(
-            text = "¿Cómo prefieres ver la app? Puedes ajustarlo cuando quieras.",
+            text = stringResource(R.string.onboarding_theme_subtitle),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
         )
@@ -61,8 +63,8 @@ internal fun ThemeScreen(
                     icon = mTheme.icon(),
                     iconBackgroundColor = mTheme.iconBackgroundColor(),
                     iconTint = mTheme.iconTint(),
-                    title = mTheme.title(),
-                    subtitle = mTheme.subtitle(),
+                    title = stringResource(mTheme.title()),
+                    subtitle = stringResource(mTheme.subtitle()),
                     subtitleColor = mTheme.subtitleColor(),
                     focusedColor = MaterialTheme.colorScheme.tertiary,
                     selected = theme == mTheme,

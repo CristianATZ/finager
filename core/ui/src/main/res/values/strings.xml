@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme strings -->
+    <string name="theme_light_title">Light</string>
+    <string name="theme_dark_title">Dark</string>
+    <string name="theme_system_title">System</string>
+    <string name="theme_light_subtitle">Bright background</string>
+    <string name="theme_dark_subtitle">Dark background</string>
+    <string name="theme_system_subtitle">Adapts to your device</string>
+
+    <!-- Currency strings -->
+    <string name="currency_mxn_name">Mexican Peso</string>
+    <string name="currency_usd_name">Dollar</string>
+    <string name="currency_eur_name">Euro</string>
+    <string name="currency_mxn_country">Mexico</string>
+    <string name="currency_usd_country">United States</string>
+    <string name="currency_eur_country">Europe</string>
+
+    <!-- Language strings -->
+    <string name="language_es_exonym">Spanish</string>
+    <string name="language_en_exonym">English</string>
+    <string name="language_fr_exonym">French</string>
+
+    <string name="common_enabled">Enabled</string>
+    <string name="common_disabled">Disabled</string>
+    <string name="common_next">Next</string>
+    <string name="common_start">Start</string>
+    <string name="common_finish">Finish</string>
+    <string name="common_step_prefix">Step</string>
+    <string name="common_step_suffix">of %1$d</string>
+</resources>

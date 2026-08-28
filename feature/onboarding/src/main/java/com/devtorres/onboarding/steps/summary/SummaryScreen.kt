@@ -4,7 +4,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,19 +12,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.devtorres.onboarding.OnboardingState
+import com.devtorres.onboarding.R
+import com.devtorres.ui.appearance.title
 import com.devtorres.ui.components.cards.CustomOutlinedCard
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
@@ -64,7 +64,7 @@ internal fun SummaryScreen(
             Spacer(modifier = Modifier.size(16.dp))
 
             Text(
-                text = "¡Todo listo, ${onboardingState.username}!",
+                text = stringResource(R.string.onboarding_summary_title, onboardingState.username),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.ExtraBold,
                 textAlign = TextAlign.Center,
@@ -72,7 +72,7 @@ internal fun SummaryScreen(
             )
 
             Text(
-                text = "Revisa tu configuración antes de empezar.",
+                text = stringResource(R.string.onboarding_summary_subtitle),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
@@ -88,30 +88,16 @@ internal fun SummaryScreen(
                     color = MaterialTheme.colorScheme.outlineVariant
                 )
             ) {
-                onboardingState.getSummaryAsList().forEach { (title, value) ->
-                    Column {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                        ) {
-                            Text(
-                                text = title,
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier.alpha(0.5f)
-                            )
-
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            Text(
-                                text = value,
-                                style = MaterialTheme.typography.bodyMedium,
-                                fontWeight = FontWeight.Bold
-                            )
+                Column {
+                    onboardingState.getSummaryAsList().forEach { (titleStringRes, value) ->
+                        val mValue = when (value) {
+                            is String? -> value ?: ""
+                            else -> stringResource(value as Int)
                         }
 
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outlineVariant
+                        SummaryRow(
+                            labelRes = titleStringRes,
+                            value = mValue
                         )
                     }
                 }

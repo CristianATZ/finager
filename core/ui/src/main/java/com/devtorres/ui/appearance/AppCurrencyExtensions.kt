@@ -1,18 +1,16 @@
 package com.devtorres.ui.appearance
 
 import com.devtorres.domain.AppCurrency
+import com.devtorres.ui.R
 
-fun AppCurrency.displayName(): String = when(this) {
-    AppCurrency.MXN -> "Peso mexicano"
-    AppCurrency.USD -> "Dólar"
-    AppCurrency.EUR -> "Euro"
+fun AppCurrency.displayName(): Int = when(this) {
+    AppCurrency.MXN -> R.string.currency_mxn_name
+    AppCurrency.USD -> R.string.currency_usd_name
+    AppCurrency.EUR -> R.string.currency_eur_name
 }
 
-fun AppCurrency.countryName(): String = when(this) {
-    AppCurrency.MXN -> "México"
-    AppCurrency.USD -> "Estados Unidos"
-    AppCurrency.EUR -> "Europa"
+fun AppCurrency.countryName(): Int = when(this) {
+    AppCurrency.MXN -> R.string.currency_mxn_country
+    AppCurrency.USD -> R.string.currency_usd_country
+    AppCurrency.EUR -> R.string.currency_eur_country
 }
-
-fun AppCurrency.description(): String =
-    "${this.displayName()} · ${this.countryName()}"

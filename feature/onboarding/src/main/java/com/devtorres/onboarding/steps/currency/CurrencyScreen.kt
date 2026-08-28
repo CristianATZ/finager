@@ -12,10 +12,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devtorres.domain.AppCurrency
-import com.devtorres.ui.appearance.description
+import com.devtorres.onboarding.R
+import com.devtorres.ui.appearance.countryName
 import com.devtorres.ui.appearance.displayName
 import com.devtorres.ui.components.cards.SelectableCard
 
@@ -32,7 +34,7 @@ internal fun CurrencyScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = "Elige tu moneda",
+            text = stringResource(R.string.onboarding_currency_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold
         )
@@ -40,7 +42,7 @@ internal fun CurrencyScreen(
         Spacer(modifier = Modifier.size(4.dp))
 
         Text(
-            text = "Usaremos esta divisa para mostrar todos tus balances y gastos.",
+            text = stringResource(R.string.onboarding_currency_subtitle),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
         )
@@ -60,7 +62,7 @@ internal fun CurrencyScreen(
                         )
                     },
                     title = mCurrency.code,
-                    subtitle = mCurrency.description(),
+                    subtitle = "${stringResource(mCurrency.displayName())} · ${stringResource(mCurrency.countryName())}",
                     selected = currency == mCurrency,
                     focusedColor = MaterialTheme.colorScheme.primary,
                     onFocusedColor = MaterialTheme.colorScheme.onPrimary,

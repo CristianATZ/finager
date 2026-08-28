@@ -36,5 +36,9 @@ gradlePlugin {
             id = "finager.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
+        register("androidFeature") {
+            id = "finager.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
     }
 }

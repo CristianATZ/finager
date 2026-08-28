@@ -28,7 +28,6 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("androidx.ui.graphics").get())
                 "implementation"(libs.findLibrary("androidx.ui.tooling.preview").get())
                 "implementation"(libs.findLibrary("androidx.material3").get())
-                "implementation"(libs.findLibrary("androidx.activity.compose").get())
                 "debugImplementation"(libs.findLibrary("androidx.ui.tooling").get())
             }
         }

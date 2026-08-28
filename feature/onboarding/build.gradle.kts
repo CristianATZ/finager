@@ -1,6 +1,5 @@
 plugins {
-    id("finager.android.library")
-    id("finager.android.compose")
+    id("finager.android.feature")
 }
 
 android {

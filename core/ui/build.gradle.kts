@@ -8,10 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    api(project(":core:domain"))
+    api(libs.androidx.material.icons.extended)
+    api(libs.compose.icons.fontawesome)
 }

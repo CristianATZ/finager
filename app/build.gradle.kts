@@ -9,11 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
+    implementation(project(":feature:onboarding"))
 
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

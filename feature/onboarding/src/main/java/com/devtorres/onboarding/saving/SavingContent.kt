@@ -36,9 +36,7 @@ internal fun SavingOverlayContent(
     homeButtonEnabled: Boolean,
     onNavigateHome: () -> Unit
 ) {
-    BackHandler {
-        // Do nothing
-    }
+    BackHandler {}
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

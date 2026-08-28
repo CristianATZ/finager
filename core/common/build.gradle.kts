@@ -1,3 +1,7 @@
 plugins {
-    id("finager.kotlin.library")
+    id("finager.android.library")
+}
+
+android {
+    namespace = "com.devtorres.common"
 }

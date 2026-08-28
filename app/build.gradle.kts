@@ -1,6 +1,7 @@
 plugins {
     id("finager.android.application")
     id("finager.android.compose")
+    id("finager.android.hilt")
 }
 
 android {

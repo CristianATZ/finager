@@ -6,6 +6,8 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.compose.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.hilt.gradlePlugin)
 }
 
 gradlePlugin {
@@ -25,6 +27,14 @@ gradlePlugin {
         register("kotlinLibrary") {
             id = "finager.kotlin.library"
             implementationClass = "KotlinLibraryConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "finager.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "finager.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
         }
     }
 }

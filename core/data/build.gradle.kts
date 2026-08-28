@@ -1,5 +1,6 @@
 plugins {
     id("finager.android.library")
+    id("finager.android.room")
 }
 
 android {

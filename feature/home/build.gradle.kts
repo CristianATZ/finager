@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.devtorres.onboarding"
+    namespace = "com.devtorres.home"
 }
 
 dependencies {

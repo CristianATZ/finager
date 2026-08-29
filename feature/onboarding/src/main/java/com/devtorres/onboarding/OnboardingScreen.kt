@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -45,15 +42,11 @@ internal fun OnBoardingScreen(
     onNavigateToHome: () -> Unit
 ) {
     val vm: OnboardingVM = hiltViewModel()
+    val onboardingState by vm.onboardingState.collectAsStateWithLifecycle()
+    val showSavingOverlay by vm.showSavingOverlay.collectAsStateWithLifecycle()
 
     val backStack = rememberNavBackStack(IntroRoute)
     val currentRoute = backStack.lastOrNull() as? OnboardingRoute
-
-    val onboardingState by vm.onboardingState.collectAsStateWithLifecycle()
-
-    var isSaving by rememberSaveable {
-        mutableStateOf(false)
-    }
 
     BackHandler {
         backStack.removeLastOrNull()
@@ -76,7 +69,7 @@ internal fun OnBoardingScreen(
                     onNext = {
                         currentRoute.next()?.let { backStack.add(it) }
                     },
-                    onFinish = { isSaving = true },
+                    onFinish = vm::showSavingOverlay,
                 )
             },
             modifier = Modifier.imePadding()
@@ -137,15 +130,9 @@ internal fun OnBoardingScreen(
         }
 
         SavingScreen(
-            visible = isSaving,
+            visible = showSavingOverlay,
             username = onboardingState.username,
             onNavigateToHome = onNavigateToHome
-            /*onNavigateHome = {
-                isSaving = false
-                backStack.clear()
-                backStack.add(IntroRoute)
-                onboardingState = OnboardingState()
-            }*/
         )
     }
 }

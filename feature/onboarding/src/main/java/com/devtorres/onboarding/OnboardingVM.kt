@@ -1,5 +1,6 @@
 package com.devtorres.onboarding
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.devtorres.domain.AppCurrency
 import com.devtorres.domain.AppLanguage
@@ -14,8 +15,19 @@ import javax.inject.Inject
 @HiltViewModel
 class OnboardingVM @Inject constructor(): ViewModel() {
 
+    init {
+        Log.i("MyTag", "VM creado")
+    }
+
     private val _onboardingState: MutableStateFlow<OnboardingState> = MutableStateFlow(OnboardingState())
     val onboardingState: StateFlow<OnboardingState> = _onboardingState.asStateFlow()
+
+    private val _showSavingOverlay: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val showSavingOverlay: StateFlow<Boolean> = _showSavingOverlay.asStateFlow()
+
+    fun showSavingOverlay() {
+        _showSavingOverlay.update { true }
+    }
 
     fun updateUsername(newUsername: String) {
         _onboardingState.update { it.copy(username = newUsername) }
@@ -35,5 +47,10 @@ class OnboardingVM @Inject constructor(): ViewModel() {
 
     fun updateBiometrics(enabled: Boolean) {
         _onboardingState.update { it.copy(biometrics = enabled) }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("MyTag", "VM Limpio")
     }
 }

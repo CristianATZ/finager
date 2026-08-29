@@ -2,18 +2,14 @@ package com.devtorres.onboarding.navigation
 
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
+import com.devtorres.navigation.AppNavigator
+import com.devtorres.navigation.AppRoute
 import com.devtorres.onboarding.OnBoardingScreen
-import kotlinx.serialization.Serializable
 
-@Serializable
-data object Onboarding : NavKey
-
-fun EntryProviderScope<NavKey>.onboardingEntryBuilder(
-    onNavigateToHome: () -> Unit
-) {
-    entry<Onboarding> {
+internal fun EntryProviderScope<NavKey>.onboardingEntryBuilder(appNavigator: AppNavigator) {
+    entry<AppRoute.Onboarding> {
         OnBoardingScreen(
-            onNavigateToHome = onNavigateToHome
+            onNavigateToHome = { appNavigator.goTo(AppRoute.Home, true)  }
         )
     }
 }

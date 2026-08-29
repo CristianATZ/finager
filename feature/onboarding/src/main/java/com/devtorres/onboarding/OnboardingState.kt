@@ -7,7 +7,7 @@ import com.devtorres.ui.appearance.title
 import com.devtorres.ui.R as ui
 import com.devtorres.onboarding.R as onboarding
 
-internal data class OnboardingState(
+data class OnboardingState(
     val username: String = "",
     val currency: AppCurrency? = null,
     val language: AppLanguage? = null,

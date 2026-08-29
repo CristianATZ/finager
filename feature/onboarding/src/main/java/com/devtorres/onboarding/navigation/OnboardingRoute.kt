@@ -68,12 +68,12 @@ internal data object SummaryRoute : OnboardingRoute {
 
 internal const val ONBOARDING_STEP_COUNT = 6
 
-internal fun OnboardingRoute.next(): OnboardingRoute? = when (this) {
+internal fun OnboardingRoute?.next(): OnboardingRoute? = when (this) {
     IntroRoute -> UsernameRoute
     UsernameRoute -> CurrencyRoute
     CurrencyRoute -> LanguageRoute
     LanguageRoute -> ThemeRoute
     ThemeRoute -> BiometricsRoute
     BiometricsRoute -> SummaryRoute
-    SummaryRoute -> null
+    else -> null
 }

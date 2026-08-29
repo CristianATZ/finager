@@ -40,5 +40,9 @@ gradlePlugin {
             id = "finager.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
+        register("androidNavigation3") {
+            id = "finager.android.navigation3"
+            implementationClass = "AndroidNavigation3ConventionPlugin"
+        }
     }
 }

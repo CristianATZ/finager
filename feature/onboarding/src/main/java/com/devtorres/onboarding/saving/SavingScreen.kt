@@ -29,7 +29,7 @@ internal val contentColor = onGreen
 internal fun SavingScreen(
     visible: Boolean,
     username: String,
-    onNavigateHome: () -> Unit
+    onNavigateToHome: () -> Unit
 ) {
     val progress = remember { Animatable(0f) }
     var homeButtonEnabled by remember { mutableStateOf(false) }
@@ -77,7 +77,7 @@ internal fun SavingScreen(
                     containerColor = containerColor,
                     contentColor = contentColor,
                     homeButtonEnabled = homeButtonEnabled,
-                    onNavigateHome = onNavigateHome
+                    onNavigateHome = onNavigateToHome
                 )
             }
         }

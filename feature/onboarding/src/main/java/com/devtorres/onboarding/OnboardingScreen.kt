@@ -12,10 +12,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
@@ -23,8 +24,8 @@ import com.devtorres.onboarding.bar.bottom.BottomBar
 import com.devtorres.onboarding.bar.top.TopBar
 import com.devtorres.onboarding.navigation.BiometricsRoute
 import com.devtorres.onboarding.navigation.CurrencyRoute
-import com.devtorres.onboarding.navigation.LanguageRoute
 import com.devtorres.onboarding.navigation.IntroRoute
+import com.devtorres.onboarding.navigation.LanguageRoute
 import com.devtorres.onboarding.navigation.OnboardingRoute
 import com.devtorres.onboarding.navigation.SummaryRoute
 import com.devtorres.onboarding.navigation.ThemeRoute
@@ -40,26 +41,22 @@ import com.devtorres.onboarding.steps.theme.ThemeScreen
 import com.devtorres.onboarding.steps.username.UsernameScreen
 
 @Composable
-fun OnBoardingScreen(
-    onCloseApp: () -> Unit
+internal fun OnBoardingScreen(
+    onNavigateToHome: () -> Unit
 ) {
-    val backStack = rememberNavBackStack(IntroRoute)
-    val currentRoute = backStack.last() as OnboardingRoute
+    val vm: OnboardingVM = hiltViewModel()
 
-    var onboardingState by remember {
-        mutableStateOf(OnboardingState())
-    }
+    val backStack = rememberNavBackStack(IntroRoute)
+    val currentRoute = backStack.lastOrNull() as? OnboardingRoute
+
+    val onboardingState by vm.onboardingState.collectAsStateWithLifecycle()
 
     var isSaving by rememberSaveable {
         mutableStateOf(false)
     }
 
     BackHandler {
-        if (backStack.size > 1) {
-            backStack.removeLastOrNull()
-        } else {
-            onCloseApp()
-        }
+        backStack.removeLastOrNull()
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -98,45 +95,35 @@ fun OnBoardingScreen(
                         UsernameScreen(
                             modifier = Modifier.padding(innerPadding),
                             username = onboardingState.username,
-                            onUsernameChange = {
-                                onboardingState = onboardingState.copy(username = it)
-                            }
+                            onUsernameChange = vm::updateUsername
                         )
                     }
                     entry<CurrencyRoute> {
                         CurrencyScreen(
                             modifier = Modifier.padding(innerPadding),
                             currency = onboardingState.currency,
-                            onCurrencyChange = {
-                                onboardingState = onboardingState.copy(currency = it)
-                            }
+                            onCurrencyChange = vm::updateCurrency
                         )
                     }
                     entry<LanguageRoute> {
                         LanguageScreen(
                             modifier = Modifier.padding(innerPadding),
                             language = onboardingState.language,
-                            onLanguageChange = {
-                                onboardingState = onboardingState.copy(language = it)
-                            }
+                            onLanguageChange = vm::updateLanguage
                         )
                     }
                     entry<ThemeRoute> {
                         ThemeScreen(
                             modifier = Modifier.padding(innerPadding),
                             theme = onboardingState.theme,
-                            onThemeChange = {
-                                onboardingState = onboardingState.copy(theme = it)
-                            }
+                            onThemeChange = vm::updateTheme
                         )
                     }
                     entry<BiometricsRoute> {
                         BiometricsScreen(
                             modifier = Modifier.padding(innerPadding),
                             biometrics = onboardingState.biometrics,
-                            onBiometricsChange = {
-                                onboardingState = onboardingState.copy(biometrics = it)
-                            }
+                            onBiometricsChange = vm::updateBiometrics
                         )
                     }
                     entry<SummaryRoute> {
@@ -152,12 +139,13 @@ fun OnBoardingScreen(
         SavingScreen(
             visible = isSaving,
             username = onboardingState.username,
-            onNavigateHome = {
+            onNavigateToHome = onNavigateToHome
+            /*onNavigateHome = {
                 isSaving = false
                 backStack.clear()
                 backStack.add(IntroRoute)
                 onboardingState = OnboardingState()
-            }
+            }*/
         )
     }
 }

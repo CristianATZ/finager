@@ -20,8 +20,10 @@ import com.devtorres.ui.components.stepper.segmented.SegmentedStepper
 @Composable
 internal fun TopBar(
     modifier: Modifier = Modifier,
-    step: OnboardingRoute
+    step: OnboardingRoute?
 ) {
+    if(step == null) return
+
     AnimatedVisibility(
         visible = step.topBarVisible,
         enter = slideInVertically { -it } + fadeIn(),

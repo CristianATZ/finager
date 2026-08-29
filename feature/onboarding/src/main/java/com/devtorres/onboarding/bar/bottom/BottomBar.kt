@@ -52,12 +52,14 @@ import com.devtorres.ui.R
 @Composable
 internal fun BottomBar(
     modifier: Modifier = Modifier,
-    step: OnboardingRoute,
+    step: OnboardingRoute?,
     onboardingState: OnboardingState,
     onBack: () -> Unit,
     onNext: () -> Unit,
     onFinish: () -> Unit
 ) {
+    if(step == null) return
+
     val buttonText by remember(step) {
         derivedStateOf {
             when (step) {

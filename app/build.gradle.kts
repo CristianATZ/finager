@@ -2,6 +2,7 @@ plugins {
     id("finager.android.application")
     id("finager.android.compose")
     id("finager.android.hilt")
+    id("finager.android.navigation3")
 }
 
 android {

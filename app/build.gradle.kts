@@ -17,4 +17,5 @@ dependencies {
     implementation(project(":feature:home"))
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.core.splashscreen)
 }

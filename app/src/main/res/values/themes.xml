@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.Finager" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Finager.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.Finager</item>
+    </style>
 </resources>

@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
@@ -17,6 +18,7 @@ import com.devtorres.navigation.AppRoute
 import com.devtorres.navigation.EntryProviderInstaller
 import com.devtorres.ui.theme.FinagerTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,13 +33,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         VersionUtils.isSdkIntAtLeast(Build.VERSION_CODES.Q) { window.isNavigationBarContrastEnforced = false }
 
+        var keepSplashScreen = true
+        installSplashScreen().setKeepOnScreenCondition { keepSplashScreen }
+
         setContent {
             LaunchedEffect(true) {
+                delay(1000)
                 appNavigator.goTo(AppRoute.Onboarding)
-            }
-
-            LaunchedEffect(appNavigator.backStack.size) {
-                Log.i("MyTag", appNavigator.backStack.size.toString())
+                keepSplashScreen = false
             }
 
             FinagerTheme {

@@ -40,13 +40,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devtorres.onboarding.OnboardingState
-import com.devtorres.onboarding.OnboardingStep
+import com.devtorres.onboarding.navigation.CurrencyRoute
+import com.devtorres.onboarding.navigation.LanguageRoute
+import com.devtorres.onboarding.navigation.IntroRoute
+import com.devtorres.onboarding.navigation.OnboardingRoute
+import com.devtorres.onboarding.navigation.SummaryRoute
+import com.devtorres.onboarding.navigation.ThemeRoute
+import com.devtorres.onboarding.navigation.UsernameRoute
 import com.devtorres.ui.R
 
 @Composable
 internal fun BottomBar(
     modifier: Modifier = Modifier,
-    step: OnboardingStep,
+    step: OnboardingRoute,
     onboardingState: OnboardingState,
     onBack: () -> Unit,
     onNext: () -> Unit,
@@ -55,8 +61,8 @@ internal fun BottomBar(
     val buttonText by remember(step) {
         derivedStateOf {
             when (step) {
-                OnboardingStep.START -> R.string.common_start
-                OnboardingStep.SUMMARY -> R.string.common_finish
+                IntroRoute -> R.string.common_start
+                SummaryRoute -> R.string.common_finish
                 else -> R.string.common_next
             }
         }
@@ -65,8 +71,8 @@ internal fun BottomBar(
     val iconButton by remember(step) {
         derivedStateOf {
             when (step) {
-                OnboardingStep.START -> null
-                OnboardingStep.SUMMARY -> Icons.Filled.Done
+                IntroRoute -> null
+                SummaryRoute -> Icons.Filled.Done
                 else -> Icons.AutoMirrored.Filled.ArrowForward
             }
         }
@@ -74,11 +80,11 @@ internal fun BottomBar(
 
     val buttonEnabled by remember(step, onboardingState) {
         derivedStateOf {
-            when(step) {
-                OnboardingStep.USERNAME -> onboardingState.isUsernameValid()
-                OnboardingStep.CURRENCY -> onboardingState.isCurrencyValid()
-                OnboardingStep.LANGUAGE -> onboardingState.isLanguageValid()
-                OnboardingStep.THEME -> onboardingState.isThemeValid()
+            when (step) {
+                UsernameRoute -> onboardingState.isUsernameValid()
+                CurrencyRoute -> onboardingState.isCurrencyValid()
+                LanguageRoute -> onboardingState.isLanguageValid()
+                ThemeRoute -> onboardingState.isThemeValid()
                 else -> true
             }
         }
@@ -127,7 +133,7 @@ internal fun BottomBar(
                 }
 
                 Button(
-                    onClick = if(step == OnboardingStep.SUMMARY) onFinish else onNext,
+                    onClick = if (step == SummaryRoute) onFinish else onNext,
                     shape = MaterialTheme.shapes.large,
                     enabled = buttonEnabled,
                     modifier = Modifier

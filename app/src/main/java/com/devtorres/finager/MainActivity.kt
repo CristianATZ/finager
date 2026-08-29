@@ -9,7 +9,6 @@ import com.devtorres.common.VersionUtils
 import com.devtorres.onboarding.OnBoardingScreen
 import com.devtorres.ui.theme.FinagerTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

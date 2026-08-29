@@ -9,4 +9,6 @@ plugins {
     alias(libs.plugins.google.devtools.ksp) apply false
     // Hilt
     alias(libs.plugins.dagger.hilt) apply false
+    // Serialization
+    alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 }

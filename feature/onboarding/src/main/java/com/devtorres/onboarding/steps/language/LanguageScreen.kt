@@ -16,7 +16,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.devtorres.domain.AppLanguage
-import com.devtorres.onboarding.R
+import com.devtorres.ui.appearance.endonym
+import com.devtorres.ui.appearance.endonymText
+import com.devtorres.onboarding.R as OnboardingString
+import com.devtorres.ui.R as UiString
 import com.devtorres.ui.appearance.exonym
 import com.devtorres.ui.components.cards.SelectableCard
 
@@ -33,7 +36,7 @@ internal fun LanguageScreen(
             .verticalScroll(rememberScrollState())
     ) {
         Text(
-            text = stringResource(R.string.onboarding_language_title),
+            text = stringResource(OnboardingString.string.onboarding_language_title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold
         )
@@ -41,7 +44,7 @@ internal fun LanguageScreen(
         Spacer(modifier = Modifier.size(4.dp))
 
         Text(
-            text = stringResource(R.string.onboarding_language_subtitle),
+            text = stringResource(OnboardingString.string.onboarding_language_subtitle),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
         )
@@ -60,7 +63,7 @@ internal fun LanguageScreen(
                             style = MaterialTheme.typography.titleMedium
                         )
                     },
-                    title = mLanguage.endonym,
+                    title = mLanguage.endonymText(),
                     subtitle = stringResource(mLanguage.exonym()),
                     selected = language == mLanguage,
                     focusedColor = MaterialTheme.colorScheme.secondary,

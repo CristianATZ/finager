@@ -2,7 +2,6 @@ package com.devtorres.finager
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -34,7 +33,22 @@ class MainActivity : ComponentActivity() {
         VersionUtils.isSdkIntAtLeast(Build.VERSION_CODES.Q) { window.isNavigationBarContrastEnforced = false }
 
         var keepSplashScreen = true
-        installSplashScreen().setKeepOnScreenCondition { keepSplashScreen }
+        val splashScreen = installSplashScreen()
+        splashScreen.apply {
+            setKeepOnScreenCondition { keepSplashScreen }
+            setOnExitAnimationListener { splashScreenView ->
+                splashScreenView.view
+                    .animate()
+                    .alpha(0f)
+                    .setStartDelay(
+                        (splashScreenView.iconAnimationStartMillis + splashScreenView.iconAnimationDurationMillis)
+                            .coerceAtLeast(0L)
+                    )
+                    .setDuration(400L)
+                    .withEndAction { splashScreenView.remove() }
+                    .start()
+            }
+        }
 
         setContent {
             LaunchedEffect(true) {

@@ -17,6 +17,8 @@
     <string name="currency_eur_country">Europe</string>
 
     <!-- Language strings -->
+    <string name="language_system_exonym">By default</string>
+    <string name="language_system_endonym">System</string>
     <string name="language_es_exonym">Spanish</string>
     <string name="language_en_exonym">English</string>
     <string name="language_fr_exonym">French</string>

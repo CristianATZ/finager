@@ -25,7 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.devtorres.onboarding.OnboardingState
 import com.devtorres.onboarding.R
-import com.devtorres.ui.appearance.title
 import com.devtorres.ui.components.cards.CustomOutlinedCard
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
@@ -89,7 +88,7 @@ internal fun SummaryScreen(
                 )
             ) {
                 Column {
-                    onboardingState.getSummaryAsList().forEach { (titleStringRes, value) ->
+                    onboardingState.toPairList().forEach { (titleStringRes, value) ->
                         val mValue = when (value) {
                             is String? -> value ?: ""
                             else -> stringResource(value as Int)

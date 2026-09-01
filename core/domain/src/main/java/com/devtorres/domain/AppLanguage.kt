@@ -3,11 +3,19 @@ package com.devtorres.domain
 import java.util.Locale
 
 enum class AppLanguage(
-    val code: String,
-    val endonym: String,
-    val locale: Locale
+    val code: String
 ) {
-    ES("ES", "Español", Locale("es", "ES")),
-    EN("EN", "English", Locale.ENGLISH),
-    FR("FR", "Français", Locale.FRENCH);
+    SYSTEM("S"),
+    ES("ES"),
+    EN("EN"),
+    FR("FR");
+
+    companion object {
+        fun AppLanguage.resolveLocale(): Locale = when (this) {
+            ES -> Locale("es", "ES")
+            EN -> Locale.ENGLISH
+            FR -> Locale.FRENCH
+            else -> Locale.getDefault()
+        }
+    }
 }

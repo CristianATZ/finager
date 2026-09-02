@@ -10,10 +10,15 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.compose.rememberLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
@@ -29,6 +34,9 @@ import com.devtorres.onboarding.navigation.ThemeRoute
 import com.devtorres.onboarding.navigation.UsernameRoute
 import com.devtorres.onboarding.navigation.next
 import com.devtorres.onboarding.saving.SavingScreen
+import com.devtorres.onboarding.state.OnboardingEffect
+import com.devtorres.onboarding.state.OnboardingEvent
+import com.devtorres.common.states.SavingState
 import com.devtorres.onboarding.steps.biometrics.BiometricsScreen
 import com.devtorres.onboarding.steps.currency.CurrencyScreen
 import com.devtorres.onboarding.steps.intro.IntroScreen
@@ -42,14 +50,26 @@ internal fun OnBoardingScreen(
     onNavigateToHome: () -> Unit
 ) {
     val vm: OnboardingVM = hiltViewModel()
-    val onboardingState by vm.onboardingState.collectAsStateWithLifecycle()
-    val showSavingOverlay by vm.showSavingOverlay.collectAsStateWithLifecycle()
+    val uiState by vm.uiState.collectAsStateWithLifecycle()
 
     val backStack = rememberNavBackStack(IntroRoute)
-    val currentRoute = backStack.lastOrNull() as? OnboardingRoute
+    val currentRoute by rememberUpdatedState(backStack.lastOrNull() as? OnboardingRoute)
+    val lifecycleOwner = rememberLifecycleOwner()
+
+    LaunchedEffect(vm.uiEffect, lifecycleOwner) {
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            vm.uiEffect.collect { effect ->
+                when(effect) {
+                    OnboardingEffect.NavigateForward -> currentRoute.next()?.let { backStack.add(it) }
+                    OnboardingEffect.NavigateBackward -> backStack.removeLastOrNull()
+                    OnboardingEffect.NavigateToHome -> onNavigateToHome()
+                }
+            }
+        }
+    }
 
     BackHandler {
-        backStack.removeLastOrNull()
+        vm.onEvent(OnboardingEvent.OnBackClicked)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -62,14 +82,16 @@ internal fun OnBoardingScreen(
             bottomBar = {
                 BottomBar(
                     step = currentRoute,
-                    onboardingState = onboardingState,
+                    onboardingState = uiState.uiState,
                     onBack = {
-                        backStack.removeLastOrNull()
+                        vm.onEvent(OnboardingEvent.OnBackClicked)
                     },
                     onNext = {
-                        currentRoute.next()?.let { backStack.add(it) }
+                        vm.onEvent(OnboardingEvent.OnNextClicked)
                     },
-                    onFinish = vm::showSavingOverlay,
+                    onFinish = {
+                        vm.onEvent(OnboardingEvent.OnFinish)
+                    }
                 )
             },
             modifier = Modifier.imePadding()
@@ -87,52 +109,66 @@ internal fun OnBoardingScreen(
                     entry<UsernameRoute> {
                         UsernameScreen(
                             modifier = Modifier.padding(innerPadding),
-                            username = onboardingState.username,
-                            onUsernameChange = vm::updateUsername
+                            username = uiState.uiState.username,
+                            onUsernameChange = {
+                                vm.onEvent(OnboardingEvent.OnUsernameChanged(it))
+                            }
                         )
                     }
                     entry<CurrencyRoute> {
                         CurrencyScreen(
                             modifier = Modifier.padding(innerPadding),
-                            currency = onboardingState.currency,
-                            onCurrencyChange = vm::updateCurrency
+                            currency = uiState.uiState.currency,
+                            onCurrencyChange = {
+                                vm.onEvent(OnboardingEvent.OnCurrencySelected(it))
+                            }
                         )
                     }
                     entry<LanguageRoute> {
                         LanguageScreen(
                             modifier = Modifier.padding(innerPadding),
-                            language = onboardingState.language,
-                            onLanguageChange = vm::updateLanguage
+                            language = uiState.uiState.language,
+                            onLanguageChange = {
+                                vm.onEvent(OnboardingEvent.OnLanguageSelected(it))
+                            }
                         )
                     }
                     entry<ThemeRoute> {
                         ThemeScreen(
                             modifier = Modifier.padding(innerPadding),
-                            theme = onboardingState.theme,
-                            onThemeChange = vm::updateTheme
+                            theme = uiState.uiState.theme,
+                            onThemeChange = {
+                                vm.onEvent(OnboardingEvent.OnThemeSelected(it))
+                            }
                         )
                     }
                     entry<BiometricsRoute> {
                         BiometricsScreen(
                             modifier = Modifier.padding(innerPadding),
-                            biometrics = onboardingState.biometrics,
-                            onBiometricsChange = vm::updateBiometrics
+                            biometrics = uiState.uiState.biometrics,
+                            onBiometricsChange = {
+                                vm.onEvent(OnboardingEvent.OnBiometricsEnabled(it))
+                            }
                         )
                     }
                     entry<SummaryRoute> {
                         SummaryScreen(
                             modifier = Modifier.padding(innerPadding),
-                            onboardingState = onboardingState
+                            onboardingState = uiState.uiState
                         )
                     }
                 }
             )
         }
 
-        SavingScreen(
-            visible = showSavingOverlay,
-            username = onboardingState.username,
-            onNavigateToHome = onNavigateToHome
-        )
+        if(uiState.savingState !is SavingState.Idle) {
+            SavingScreen(
+                username = uiState.uiState.username,
+                savingState = uiState.savingState,
+                onNavigateToHome = {
+                    vm.onEvent(OnboardingEvent.OnNavigateToHome)
+                }
+            )
+        }
     }
 }

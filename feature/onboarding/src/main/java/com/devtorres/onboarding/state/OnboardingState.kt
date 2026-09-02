@@ -1,12 +1,11 @@
-package com.devtorres.onboarding
+package com.devtorres.onboarding.state
 
 import com.devtorres.domain.AppCurrency
 import com.devtorres.domain.AppLanguage
 import com.devtorres.domain.AppTheme
+import com.devtorres.onboarding.R
 import com.devtorres.ui.appearance.endonym
 import com.devtorres.ui.appearance.title
-import com.devtorres.ui.R as UiString
-import com.devtorres.onboarding.R as OnboardingString
 
 data class OnboardingState(
     val username: String = "",
@@ -29,10 +28,10 @@ data class OnboardingState(
 
     fun toPairList() : List<Pair<Int, Any?>> =
         listOf(
-            OnboardingString.string.onboarding_summary_username to this.username,
-            OnboardingString.string.onboarding_summary_currency to "${this.currency?.code} (${this.currency?.symbol})",
-            OnboardingString.string.onboarding_summary_language to this.language?.endonym(),
-            OnboardingString.string.onboarding_summary_theme to this.theme?.title(),
-            OnboardingString.string.onboarding_summary_biometrics to if(this.biometrics) UiString.string.common_enabled else UiString.string.common_disabled
+            R.string.onboarding_summary_username to this.username,
+            R.string.onboarding_summary_currency to "${this.currency?.code} (${this.currency?.symbol})",
+            R.string.onboarding_summary_language to this.language?.endonym(),
+            R.string.onboarding_summary_theme to this.theme?.title(),
+            R.string.onboarding_summary_biometrics to if(this.biometrics) com.devtorres.ui.R.string.common_enabled else com.devtorres.ui.R.string.common_disabled
         )
 }

@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.devtorres.onboarding.OnboardingState
+import com.devtorres.onboarding.state.OnboardingState
 import com.devtorres.onboarding.R
 import com.devtorres.ui.components.cards.CustomOutlinedCard
 import compose.icons.FontAwesomeIcons

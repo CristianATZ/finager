@@ -13,13 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.retain.retain
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.devtorres.common.states.SavingState
 import com.devtorres.ui.theme.green
 import com.devtorres.ui.theme.onGreen
-import kotlinx.coroutines.delay
 import kotlin.math.hypot
 
 internal val containerColor = green
@@ -27,29 +27,23 @@ internal val contentColor = onGreen
 
 @Composable
 internal fun SavingScreen(
-    visible: Boolean,
     username: String,
+    savingState: SavingState,
     onNavigateToHome: () -> Unit
 ) {
-    val progress = remember { Animatable(0f) }
-    var homeButtonEnabled by remember { mutableStateOf(false) }
+    val progress = retain { Animatable(0f) }
+    var hasPlayedEntryAnimation by retain { mutableStateOf(false) }
 
-    LaunchedEffect(visible) {
-        if (visible) {
-            homeButtonEnabled = false
+    LaunchedEffect(Unit) {
+        if (!hasPlayedEntryAnimation) {
+            hasPlayedEntryAnimation = true
             progress.snapTo(0f)
             progress.animateTo(
                 targetValue = 1f,
-                animationSpec = tween(durationMillis = 700, easing = FastOutSlowInEasing)
+                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
             )
-            delay(3_000)
-            homeButtonEnabled = true
         } else {
-            homeButtonEnabled = false
-            progress.animateTo(
-                targetValue = 0f,
-                animationSpec = tween(durationMillis = 700, easing = FastOutSlowInEasing)
-            )
+            progress.snapTo(1f)
         }
     }
 
@@ -76,7 +70,7 @@ internal fun SavingScreen(
                     username = username,
                     containerColor = containerColor,
                     contentColor = contentColor,
-                    homeButtonEnabled = homeButtonEnabled,
+                    homeButtonEnabled = savingState !is SavingState.Loading,
                     onNavigateHome = onNavigateToHome
                 )
             }

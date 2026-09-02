@@ -3,6 +3,7 @@ package com.devtorres.onboarding.hilt
 import com.devtorres.navigation.AppNavigator
 import com.devtorres.navigation.EntryProviderInstaller
 import com.devtorres.onboarding.navigation.onboardingEntryBuilder
+import com.devtorres.onboarding.state.OnboardingState
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,4 +19,7 @@ object OnboardingModule {
     fun provideEntryProviderInstaller(appNavigator: AppNavigator): EntryProviderInstaller = {
         onboardingEntryBuilder(appNavigator)
     }
+
+    @Provides
+    fun provideInitialOnboardingState(): OnboardingState = OnboardingState()
 }

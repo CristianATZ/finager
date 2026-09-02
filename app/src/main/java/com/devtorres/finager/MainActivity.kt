@@ -40,10 +40,6 @@ class MainActivity : ComponentActivity() {
                 splashScreenView.view
                     .animate()
                     .alpha(0f)
-                    .setStartDelay(
-                        (splashScreenView.iconAnimationStartMillis + splashScreenView.iconAnimationDurationMillis)
-                            .coerceAtLeast(0L)
-                    )
                     .setDuration(400L)
                     .withEndAction { splashScreenView.remove() }
                     .start()

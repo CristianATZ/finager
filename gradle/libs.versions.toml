@@ -22,7 +22,7 @@ kotlinSerialization = "2.0.21"
 kotlinxSerializationCore = "1.7.3"
 nav3Core = "1.1.7"
 viewModel = "2.10.0"
-coreSplashscreen = "1.0.1"
+coreSplashscreen = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

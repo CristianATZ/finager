@@ -18,6 +18,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("androidx.activity.compose").get())
                 "implementation"(libs.findLibrary("androidx.lifecycle.viewmodel.ktx").get())
                 "implementation"(libs.findLibrary("androidx.lifecycle.viewmodel.compose").get())
+                "implementation"(libs.findLibrary("androidx.hilt.navigation.compose").get())
             }
         }
     }

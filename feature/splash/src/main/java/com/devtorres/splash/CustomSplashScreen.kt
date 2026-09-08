@@ -133,7 +133,7 @@ fun CustomSplashScreen(
     )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .drawBehind {
                 drawRect(

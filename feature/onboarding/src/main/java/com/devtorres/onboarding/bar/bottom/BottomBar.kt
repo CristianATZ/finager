@@ -9,8 +9,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,20 +37,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.devtorres.onboarding.navigation.BackButtonVisible
+import com.devtorres.onboarding.navigation.OnboardingDestination
 import com.devtorres.onboarding.state.OnboardingState
-import com.devtorres.onboarding.navigation.CurrencyRoute
-import com.devtorres.onboarding.navigation.LanguageRoute
-import com.devtorres.onboarding.navigation.IntroRoute
-import com.devtorres.onboarding.navigation.OnboardingRoute
-import com.devtorres.onboarding.navigation.SummaryRoute
-import com.devtorres.onboarding.navigation.ThemeRoute
-import com.devtorres.onboarding.navigation.UsernameRoute
 import com.devtorres.ui.R
 
 @Composable
 internal fun BottomBar(
     modifier: Modifier = Modifier,
-    step: OnboardingRoute?,
+    step: OnboardingDestination?,
     onboardingState: OnboardingState,
     onBack: () -> Unit,
     onNext: () -> Unit,
@@ -63,8 +56,8 @@ internal fun BottomBar(
     val buttonText by remember(step) {
         derivedStateOf {
             when (step) {
-                IntroRoute -> R.string.common_start
-                SummaryRoute -> R.string.common_finish
+                OnboardingDestination.IntroRoute -> R.string.common_start
+                OnboardingDestination.SummaryRoute -> R.string.common_finish
                 else -> R.string.common_next
             }
         }
@@ -73,8 +66,8 @@ internal fun BottomBar(
     val iconButton by remember(step) {
         derivedStateOf {
             when (step) {
-                IntroRoute -> null
-                SummaryRoute -> Icons.Filled.Done
+                OnboardingDestination.IntroRoute -> null
+                OnboardingDestination.SummaryRoute -> Icons.Filled.Done
                 else -> Icons.AutoMirrored.Filled.ArrowForward
             }
         }
@@ -83,89 +76,83 @@ internal fun BottomBar(
     val buttonEnabled by remember(step, onboardingState) {
         derivedStateOf {
             when (step) {
-                UsernameRoute -> onboardingState.isUsernameValid()
-                CurrencyRoute -> onboardingState.isCurrencyValid()
-                LanguageRoute -> onboardingState.isLanguageValid()
-                ThemeRoute -> onboardingState.isThemeValid()
+                OnboardingDestination.UsernameRoute -> onboardingState.isUsernameValid()
+                OnboardingDestination.CurrencyRoute -> onboardingState.isCurrencyValid()
+                OnboardingDestination.LanguageRoute -> onboardingState.isLanguageValid()
+                OnboardingDestination.ThemeRoute -> onboardingState.isThemeValid()
                 else -> true
             }
         }
     }
 
-    AnimatedVisibility(
-        visible = step.bottomBarVisible,
-        enter = slideInVertically { it } + fadeIn(),
-        exit = slideOutVertically { it } + fadeOut(),
+    Column(
+        modifier = modifier
     ) {
-        Column(
-            modifier = modifier
-        ) {
-            HorizontalDivider(
-                color = MaterialTheme.colorScheme.outlineVariant
-            )
+        HorizontalDivider(
+            color = MaterialTheme.colorScheme.outlineVariant
+        )
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .windowInsetsPadding(WindowInsets.navigationBars)
-                    .padding(16.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .windowInsetsPadding(WindowInsets.navigationBars)
+                .padding(16.dp)
+        ) {
+            // Back button
+            AnimatedVisibility(
+                visible = step is BackButtonVisible,
+                enter = fadeIn() + scaleIn() + expandHorizontally(),
+                exit = fadeOut() + scaleOut() + shrinkHorizontally()
             ) {
-                // Back button
-                AnimatedVisibility(
-                    visible = step.backButtonVisible,
-                    enter = fadeIn() + scaleIn() + expandHorizontally(),
-                    exit = fadeOut() + scaleOut() + shrinkHorizontally()
+                OutlinedIconButton (
+                    onClick = onBack,
+                    shape = MaterialTheme.shapes.large,
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.outlineVariant
+                    ),
+                    modifier = Modifier
+                        .padding(end = 16.dp)
+                        .size(48.dp)
                 ) {
-                    OutlinedIconButton (
-                        onClick = onBack,
-                        shape = MaterialTheme.shapes.large,
-                        border = BorderStroke(
-                            width = 1.dp,
-                            color = MaterialTheme.colorScheme.outlineVariant
-                        ),
-                        modifier = Modifier
-                            .padding(end = 16.dp)
-                            .size(48.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
+                    )
+                }
+            }
+
+            Button(
+                onClick = if (step == OnboardingDestination.SummaryRoute) onFinish else onNext,
+                shape = MaterialTheme.shapes.large,
+                enabled = buttonEnabled,
+                modifier = Modifier
+                    .weight(1f)
+                    .animateContentSize()
+                    .height(48.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    AnimatedContent(
+                        targetState = buttonText,
+                        label = "nextButtonLabel"
+                    ) { text ->
+                        Text(
+                            text = stringResource(text),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
-                }
 
-                Button(
-                    onClick = if (step == SummaryRoute) onFinish else onNext,
-                    shape = MaterialTheme.shapes.large,
-                    enabled = buttonEnabled,
-                    modifier = Modifier
-                        .weight(1f)
-                        .animateContentSize()
-                        .height(48.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        AnimatedContent(
-                            targetState = buttonText,
-                            label = "nextButtonLabel"
-                        ) { text ->
-                            Text(
-                                text = stringResource(buttonText),
-                                style = MaterialTheme.typography.bodyLarge,
-                                fontWeight = FontWeight.SemiBold
+                    AnimatedContent(
+                        targetState = iconButton,
+                        label = "nextButtonIcon"
+                    ) { icon ->
+                        icon?.let {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null,
+                                modifier = Modifier.padding(start = 8.dp)
                             )
-                        }
-
-                        AnimatedContent(
-                            targetState = iconButton,
-                            label = "nextButtonIcon"
-                        ) { icon ->
-                            icon?.let {
-                                Icon(
-                                    imageVector = icon,
-                                    contentDescription = null,
-                                    modifier = Modifier.padding(start = 8.dp)
-                                )
-                            }
                         }
                     }
                 }

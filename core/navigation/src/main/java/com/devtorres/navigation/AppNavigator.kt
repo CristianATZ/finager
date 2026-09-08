@@ -1,10 +1,31 @@
 package com.devtorres.navigation
 
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.snapshots.Snapshot
+import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.devtorres.navigation.key.Route
 
-interface AppNavigator {
-    val backStack: SnapshotStateList<NavKey>
-    fun goTo(key: NavKey, inclusive: Boolean = false)
-    fun goBack(key: NavKey? = null)
+class AppNavigator(
+    private val mutableBackStack: NavBackStack<NavKey>
+) {
+    val backstack: List<NavKey> = mutableBackStack
+
+    val currentRoute: NavKey?
+        get() = backstack.lastOrNull()
+
+    fun navigateTo(route: Route) {
+        mutableBackStack.add(route)
+    }
+
+    fun newRootScreen(route: Route) {
+        Snapshot.withMutableSnapshot {
+            mutableBackStack.clear()
+            mutableBackStack.add(route)
+        }
+    }
+
+    fun goBack() {
+        if(mutableBackStack.size > 1)
+            mutableBackStack.removeLastOrNull()
+    }
 }

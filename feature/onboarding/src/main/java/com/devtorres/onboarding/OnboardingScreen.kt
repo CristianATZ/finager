@@ -22,21 +22,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.devtorres.common.states.SavingState
+import com.devtorres.navigation.decorator.rememberAppNavigator
 import com.devtorres.onboarding.bar.bottom.BottomBar
 import com.devtorres.onboarding.bar.top.TopBar
-import com.devtorres.onboarding.navigation.BiometricsRoute
-import com.devtorres.onboarding.navigation.CurrencyRoute
-import com.devtorres.onboarding.navigation.IntroRoute
-import com.devtorres.onboarding.navigation.LanguageRoute
-import com.devtorres.onboarding.navigation.OnboardingRoute
-import com.devtorres.onboarding.navigation.SummaryRoute
-import com.devtorres.onboarding.navigation.ThemeRoute
-import com.devtorres.onboarding.navigation.UsernameRoute
-import com.devtorres.onboarding.navigation.next
+import com.devtorres.onboarding.navigation.OnboardingDestination
 import com.devtorres.onboarding.saving.SavingScreen
 import com.devtorres.onboarding.state.OnboardingEffect
 import com.devtorres.onboarding.state.OnboardingEvent
-import com.devtorres.common.states.SavingState
 import com.devtorres.onboarding.steps.biometrics.BiometricsScreen
 import com.devtorres.onboarding.steps.currency.CurrencyScreen
 import com.devtorres.onboarding.steps.intro.IntroScreen
@@ -46,29 +39,30 @@ import com.devtorres.onboarding.steps.theme.ThemeScreen
 import com.devtorres.onboarding.steps.username.UsernameScreen
 
 @Composable
-internal fun OnBoardingScreen(
+fun OnBoardingScreen(
     onNavigateToHome: () -> Unit
 ) {
     val vm: OnboardingVM = hiltViewModel()
     val uiState by vm.uiState.collectAsStateWithLifecycle()
 
-    val backStack = rememberNavBackStack(IntroRoute)
-    val currentRoute by rememberUpdatedState(backStack.lastOrNull() as? OnboardingRoute)
-    val lifecycleOwner = rememberLifecycleOwner()
+    val backStack = rememberNavBackStack(OnboardingDestination.IntroRoute)
+    val onboardingNavigator = rememberAppNavigator(backStack)
+    val currentRoute by rememberUpdatedState(onboardingNavigator.currentRoute as OnboardingDestination)
 
+    val lifecycleOwner = rememberLifecycleOwner()
     LaunchedEffect(vm.uiEffect, lifecycleOwner) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
             vm.uiEffect.collect { effect ->
                 when(effect) {
-                    OnboardingEffect.NavigateForward -> currentRoute.next()?.let { backStack.add(it) }
-                    OnboardingEffect.NavigateBackward -> backStack.removeLastOrNull()
+                    OnboardingEffect.NavigateForward -> currentRoute.createRoute()?.let { onboardingNavigator.navigateTo(it) }
+                    OnboardingEffect.NavigateBackward -> onboardingNavigator.goBack()
                     OnboardingEffect.NavigateToHome -> onNavigateToHome()
                 }
             }
         }
     }
 
-    BackHandler {
+    BackHandler(enabled = onboardingNavigator.backstack.size > 1) {
         vm.onEvent(OnboardingEvent.OnBackClicked)
     }
 
@@ -76,7 +70,8 @@ internal fun OnBoardingScreen(
         Scaffold(
             topBar = {
                 TopBar(
-                    step = currentRoute
+                    currentStep = currentRoute,
+                    totalSteps = OnboardingDestination.totalSteps()
                 )
             },
             bottomBar = {
@@ -97,16 +92,16 @@ internal fun OnBoardingScreen(
             modifier = Modifier.imePadding()
         ) { innerPadding ->
             NavDisplay(
-                backStack = backStack,
-                onBack = { backStack.removeLastOrNull() },
+                backStack = onboardingNavigator.backstack,
+                onBack = onboardingNavigator::goBack,
                 transitionSpec = { fadeIn() togetherWith fadeOut() },
                 popTransitionSpec = { fadeIn() togetherWith fadeOut() },
                 predictivePopTransitionSpec = { fadeIn() togetherWith fadeOut() },
                 entryProvider = entryProvider {
-                    entry<IntroRoute> {
+                    entry<OnboardingDestination.IntroRoute> {
                         IntroScreen()
                     }
-                    entry<UsernameRoute> {
+                    entry<OnboardingDestination.UsernameRoute> {
                         UsernameScreen(
                             modifier = Modifier.padding(innerPadding),
                             username = uiState.uiState.username,
@@ -115,7 +110,7 @@ internal fun OnBoardingScreen(
                             }
                         )
                     }
-                    entry<CurrencyRoute> {
+                    entry<OnboardingDestination.CurrencyRoute> {
                         CurrencyScreen(
                             modifier = Modifier.padding(innerPadding),
                             currency = uiState.uiState.currency,
@@ -124,7 +119,7 @@ internal fun OnBoardingScreen(
                             }
                         )
                     }
-                    entry<LanguageRoute> {
+                    entry<OnboardingDestination.LanguageRoute> {
                         LanguageScreen(
                             modifier = Modifier.padding(innerPadding),
                             language = uiState.uiState.language,
@@ -133,7 +128,7 @@ internal fun OnBoardingScreen(
                             }
                         )
                     }
-                    entry<ThemeRoute> {
+                    entry<OnboardingDestination.ThemeRoute> {
                         ThemeScreen(
                             modifier = Modifier.padding(innerPadding),
                             theme = uiState.uiState.theme,
@@ -142,7 +137,7 @@ internal fun OnBoardingScreen(
                             }
                         )
                     }
-                    entry<BiometricsRoute> {
+                    entry<OnboardingDestination.BiometricsRoute> {
                         BiometricsScreen(
                             modifier = Modifier.padding(innerPadding),
                             biometrics = uiState.uiState.biometrics,
@@ -151,7 +146,7 @@ internal fun OnBoardingScreen(
                             }
                         )
                     }
-                    entry<SummaryRoute> {
+                    entry<OnboardingDestination.SummaryRoute> {
                         SummaryScreen(
                             modifier = Modifier.padding(innerPadding),
                             onboardingState = uiState.uiState

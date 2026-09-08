@@ -1,79 +1,52 @@
 package com.devtorres.onboarding.navigation
 
-import androidx.navigation3.runtime.NavKey
+import com.devtorres.navigation.key.Route
 import kotlinx.serialization.Serializable
 
-internal sealed interface OnboardingRoute : NavKey {
+internal interface TopBarVisible
+internal interface BackButtonVisible
+
+@Serializable
+sealed class OnboardingDestination(
     val stepIndex: Int
-    val topBarVisible: Boolean
-    val bottomBarVisible: Boolean
-    val backButtonVisible: Boolean
-}
+) : Route {
 
-@Serializable
-internal data object IntroRoute : OnboardingRoute {
-    override val stepIndex = -1
-    override val topBarVisible = false
-    override val bottomBarVisible = true
-    override val backButtonVisible = false
-}
+    @Serializable
+    data object IntroRoute : OnboardingDestination(stepIndex = -1)
 
-@Serializable
-internal data object UsernameRoute : OnboardingRoute {
-    override val stepIndex = 0
-    override val topBarVisible = true
-    override val bottomBarVisible = true
-    override val backButtonVisible = true
-}
+    @Serializable
+    data object UsernameRoute : OnboardingDestination(stepIndex = 1), TopBarVisible, BackButtonVisible
 
-@Serializable
-internal data object CurrencyRoute : OnboardingRoute {
-    override val stepIndex = 1
-    override val topBarVisible = true
-    override val bottomBarVisible = true
-    override val backButtonVisible = true
-}
+    @Serializable
+    data object CurrencyRoute : OnboardingDestination(stepIndex = 2), TopBarVisible, BackButtonVisible
 
-@Serializable
-internal data object LanguageRoute : OnboardingRoute {
-    override val stepIndex = 2
-    override val topBarVisible = true
-    override val bottomBarVisible = true
-    override val backButtonVisible = true
-}
+    @Serializable
+    data object LanguageRoute : OnboardingDestination(stepIndex = 3), TopBarVisible, BackButtonVisible
 
-@Serializable
-internal data object ThemeRoute : OnboardingRoute {
-    override val stepIndex = 3
-    override val topBarVisible = true
-    override val bottomBarVisible = true
-    override val backButtonVisible = true
-}
+    @Serializable
+    data object ThemeRoute : OnboardingDestination(stepIndex = 4), TopBarVisible, BackButtonVisible
 
-@Serializable
-internal data object BiometricsRoute : OnboardingRoute {
-    override val stepIndex = 4
-    override val topBarVisible = true
-    override val bottomBarVisible = true
-    override val backButtonVisible = true
-}
+    @Serializable
+    data object BiometricsRoute : OnboardingDestination(stepIndex = 5), TopBarVisible, BackButtonVisible
 
-@Serializable
-internal data object SummaryRoute : OnboardingRoute {
-    override val stepIndex = 5
-    override val topBarVisible = true
-    override val bottomBarVisible = true
-    override val backButtonVisible = true
-}
+    @Serializable
+    data object SummaryRoute : OnboardingDestination(stepIndex = 6), TopBarVisible, BackButtonVisible
 
-internal const val ONBOARDING_STEP_COUNT = 6
+    fun createRoute(): OnboardingDestination? = when(this) {
+        IntroRoute -> UsernameRoute
+        UsernameRoute -> CurrencyRoute
+        CurrencyRoute -> LanguageRoute
+        LanguageRoute -> ThemeRoute
+        ThemeRoute -> BiometricsRoute
+        BiometricsRoute -> SummaryRoute
+        else -> null
+    }
 
-internal fun OnboardingRoute?.next(): OnboardingRoute? = when (this) {
-    IntroRoute -> UsernameRoute
-    UsernameRoute -> CurrencyRoute
-    CurrencyRoute -> LanguageRoute
-    LanguageRoute -> ThemeRoute
-    ThemeRoute -> BiometricsRoute
-    BiometricsRoute -> SummaryRoute
-    else -> null
+    companion object {
+        private val steps: List<OnboardingDestination> = listOf(
+            UsernameRoute, CurrencyRoute, LanguageRoute, ThemeRoute, BiometricsRoute, SummaryRoute
+        )
+
+        fun totalSteps(): Int = steps.size
+    }
 }

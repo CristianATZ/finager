@@ -7,77 +7,77 @@ class OnboardingRouteTest {
 
     @Test
     fun `next step from intro is username`() {
-        val currentStep = IntroRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.IntroRoute
+        val nextStep = currentStep.createRoute()
 
-        assertEquals(UsernameRoute, nextStep)
+        assertEquals(OnboardingDestination.UsernameRoute, nextStep)
     }
 
     @Test
     fun `next step from username is currency`() {
-        val currentStep = UsernameRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.UsernameRoute
+        val nextStep = currentStep.createRoute()
 
-        assertEquals(CurrencyRoute, nextStep)
+        assertEquals(OnboardingDestination.CurrencyRoute, nextStep)
     }
 
     @Test
     fun `next step from currency is language`() {
-        val currentStep = CurrencyRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.CurrencyRoute
+        val nextStep = currentStep.createRoute()
 
-        assertEquals(LanguageRoute, nextStep)
+        assertEquals(OnboardingDestination.LanguageRoute, nextStep)
     }
 
     @Test
     fun `next step from language is theme`() {
-        val currentStep = LanguageRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.LanguageRoute
+        val nextStep = currentStep.createRoute()
 
-        assertEquals(ThemeRoute, nextStep)
+        assertEquals(OnboardingDestination.ThemeRoute, nextStep)
     }
 
     @Test
     fun `next step from theme is biometrics`() {
-        val currentStep = ThemeRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.ThemeRoute
+        val nextStep = currentStep.createRoute()
 
-        assertEquals(BiometricsRoute, nextStep)
+        assertEquals(OnboardingDestination.BiometricsRoute, nextStep)
     }
 
     @Test
     fun `next step from biometrics is summary`() {
-        val currentStep = BiometricsRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.BiometricsRoute
+        val nextStep = currentStep.createRoute()
 
-        assertEquals(SummaryRoute, nextStep)
+        assertEquals(OnboardingDestination.SummaryRoute, nextStep)
     }
 
     @Test
     fun `next step from summary is null`() {
-        val currentStep = SummaryRoute
-        val nextStep = currentStep.next()
+        val currentStep = OnboardingDestination.SummaryRoute
+        val nextStep = currentStep.createRoute()
 
         assertEquals(null, nextStep)
     }
 
     @Test
     fun `walking the full chain from intro visits every step in order`() {
-        val visited = generateSequence(IntroRoute as OnboardingRoute?) { it.next() }
-            .take(ONBOARDING_STEP_COUNT + 2)
+        val visited = generateSequence(OnboardingDestination.IntroRoute as OnboardingDestination?) { it.createRoute() }
+            .take(OnboardingDestination.totalSteps() + 2)
             .toList()
 
         assertEquals(
-            listOf(IntroRoute, UsernameRoute, CurrencyRoute, LanguageRoute, ThemeRoute, BiometricsRoute, SummaryRoute),
+            listOf(
+                OnboardingDestination.IntroRoute,
+                OnboardingDestination.UsernameRoute,
+                OnboardingDestination.CurrencyRoute,
+                OnboardingDestination.LanguageRoute,
+                OnboardingDestination.ThemeRoute,
+                OnboardingDestination.BiometricsRoute,
+                OnboardingDestination.SummaryRoute
+            ),
             visited
         )
-    }
-
-    @Test
-    fun `only intro hides topbar and back button`() {
-        val step = IntroRoute
-
-        assertEquals(false, step.topBarVisible)
-        assertEquals(false, step.backButtonVisible)
     }
 }

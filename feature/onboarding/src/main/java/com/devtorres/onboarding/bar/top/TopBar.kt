@@ -13,25 +13,24 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.devtorres.onboarding.navigation.ONBOARDING_STEP_COUNT
-import com.devtorres.onboarding.navigation.OnboardingRoute
+import com.devtorres.onboarding.navigation.OnboardingDestination
+import com.devtorres.onboarding.navigation.TopBarVisible
 import com.devtorres.ui.components.stepper.segmented.SegmentedStepper
 
 @Composable
 internal fun TopBar(
     modifier: Modifier = Modifier,
-    step: OnboardingRoute?
+    currentStep: OnboardingDestination,
+    totalSteps: Int
 ) {
-    if(step == null) return
-
     AnimatedVisibility(
-        visible = step.topBarVisible,
+        visible = currentStep is TopBarVisible,
         enter = slideInVertically { -it } + fadeIn(),
         exit = slideOutVertically { -it } + fadeOut()
     ) {
         SegmentedStepper(
-            steps = ONBOARDING_STEP_COUNT,
-            currentStep = step.stepIndex,
+            steps = totalSteps,
+            currentStep = currentStep.stepIndex,
             showText = true,
             modifier = modifier
                 .fillMaxWidth()

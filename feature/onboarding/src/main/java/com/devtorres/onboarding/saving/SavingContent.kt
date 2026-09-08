@@ -66,7 +66,7 @@ internal fun SavingOverlayContent(
         Spacer(modifier = Modifier.size(16.dp))
 
         DotsLoading(
-            dotsColors = onGreen
+            color = onGreen
         )
 
         Spacer(modifier = Modifier.weight(2f))

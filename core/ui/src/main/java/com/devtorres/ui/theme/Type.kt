@@ -8,80 +8,78 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.devtorres.ui.R
 
-val SpaceGrotesk = FontFamily(
-    Font(R.font.space_grotesk_regular, FontWeight.Normal),
-    Font(R.font.space_grotesk_medium, FontWeight.Medium),
-    Font(R.font.space_grotesk_semibold, FontWeight.SemiBold),
-    Font(R.font.space_grotesk_bold, FontWeight.Bold)
-)
-
 val Geist = FontFamily(
-    Font(R.font.geist_regular, FontWeight.Normal),
-    Font(R.font.geist_medium, FontWeight.Medium),
-    Font(R.font.geist_semibold, FontWeight.SemiBold),
-    Font(R.font.geist_bold, FontWeight.Bold)
+    Font(R.font.geist_thin, FontWeight.W100),
+    Font(R.font.geist_extralight, FontWeight.W200),
+    Font(R.font.geist_light, FontWeight.W300),
+    Font(R.font.geist_regular, FontWeight.W400),
+    Font(R.font.geist_medium, FontWeight.W500),
+    Font(R.font.geist_semibold, FontWeight.W600),
+    Font(R.font.geist_bold, FontWeight.W700),
+    Font(R.font.geist_extrabold, FontWeight.W800),
+    Font(R.font.geist_black, FontWeight.W900),
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 57.sp,
         lineHeight = 64.sp,
         letterSpacing = (-0.2).sp
     ),
     displayMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 45.sp,
         lineHeight = 52.sp,
         letterSpacing = 0.sp
     ),
     displaySmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 36.sp,
         lineHeight = 44.sp,
         letterSpacing = 0.sp
     ),
     headlineLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 32.sp,
         lineHeight = 40.sp,
         letterSpacing = 0.sp
     ),
     headlineMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
         lineHeight = 36.sp,
         letterSpacing = 0.sp
     ),
     headlineSmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp,
         lineHeight = 32.sp,
         letterSpacing = 0.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Normal,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
     titleMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.2.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Geist,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,

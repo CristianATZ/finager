@@ -29,8 +29,8 @@ internal fun DostLoadingPreview(
             repeat(5) {
                 DotsLoading(
                     modifier = Modifier,
-                    dotsCount = it + 1,
-                    dotsColors = Color.White
+                    count = it + 1,
+                    color = Color.White
                 )
             }
         }

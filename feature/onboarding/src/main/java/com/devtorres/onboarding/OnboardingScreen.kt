@@ -1,5 +1,6 @@
 package com.devtorres.onboarding
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -60,6 +61,10 @@ fun OnBoardingScreen(
                 }
             }
         }
+    }
+
+    LaunchedEffect(currentRoute) {
+        Log.d("MyTag", "currentRoute -> ${currentRoute.stepIndex}")
     }
 
     BackHandler(enabled = onboardingNavigator.backstack.size > 1) {

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash_title" translatable="false">meet finager.</string>
+    <string name="splash_desc" translatable="false">your personal manager companion</string>
+    <string name="splash_footer" translatable="false">MADE FOR YOUR EVERYDAY</string>
+</resources>

@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ fun CustomOutlinedCard(
     colors: CardColors = CardDefaults.outlinedCardColors(
         containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
     ),
+    elevation: CardElevation = CardDefaults.cardElevation(),
     shape: Shape = RoundedCornerShape(20.dp),
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit
@@ -34,7 +36,8 @@ fun CustomOutlinedCard(
         modifier = mModifier,
         shape = shape,
         border = border,
-        colors = colors
+        colors = colors,
+        elevation = elevation
     ) {
         content.invoke()
     }

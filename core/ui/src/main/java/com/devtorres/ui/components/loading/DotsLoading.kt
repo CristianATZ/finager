@@ -8,7 +8,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -18,23 +17,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun DotsLoading(
     modifier: Modifier = Modifier,
-    dotsCount: Int = 5,
-    dotsColors: Color = Color.White
+    count: Int = 5,
+    color: Color = Color.White,
+    dotSize: Dp = 32.dp,
+    dotSpacing: Dp = 8.dp
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "dotsPulse")
 
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(dotSpacing)
     ) {
-        repeat(dotsCount) { index ->
+        repeat(count) { index ->
             val dotScale by infiniteTransition.animateFloat(
                 initialValue = 0.5f,
                 targetValue = 1f,
@@ -48,13 +51,13 @@ fun DotsLoading(
 
             Box(
                 modifier = Modifier
-                    .size(32.dp)
+                    .size(dotSize)
                     .graphicsLayer {
                         scaleX = dotScale
                         scaleY = dotScale
                     }
                     .clip(CircleShape)
-                    .background(dotsColors)
+                    .drawBehind { drawCircle(color = color) }
             )
         }
     }

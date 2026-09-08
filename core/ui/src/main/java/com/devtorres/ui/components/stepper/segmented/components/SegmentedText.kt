@@ -43,7 +43,7 @@ fun SegmentedText(
             label = "stepNumber"
         ) { step ->
             Text(
-                text = " ${step + 1} ",
+                text = " $step ",
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)

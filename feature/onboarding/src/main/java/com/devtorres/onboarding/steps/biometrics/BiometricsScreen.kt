@@ -20,8 +20,8 @@ import com.devtorres.onboarding.R
 @Composable
 internal fun BiometricsScreen(
     modifier: Modifier = Modifier,
-    biometrics: Boolean,
-    onBiometricsChange: (Boolean) -> Unit
+    biometrics: Boolean = false,
+    onBiometricsChange: (Boolean) -> Unit = {}
 ) {
     Column (
         modifier = modifier

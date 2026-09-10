@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -19,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devtorres.splash.components.OrbitingCirclesBackground
 import com.devtorres.splash.components.SplashContent
+import com.devtorres.ui.UiCommon
 import com.devtorres.ui.UiCommon.UpdateContentBarsColors
 import com.devtorres.ui.theme.green
 import com.devtorres.ui.theme.onGreen
@@ -33,7 +33,7 @@ fun CustomSplashScreen(
     onNavigateToOnboarding: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
-    if(!LocalInspectionMode.current) {
+    UiCommon.RunIfNotPreview {
         BackHandler { }
     }
 

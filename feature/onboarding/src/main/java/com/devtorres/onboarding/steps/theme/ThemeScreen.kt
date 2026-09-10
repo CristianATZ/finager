@@ -30,7 +30,7 @@ import com.devtorres.ui.appearance.title
 internal fun ThemeScreen(
     modifier: Modifier = Modifier,
     theme: AppTheme? = null,
-    onThemeChange: (AppTheme) -> Unit
+    onThemeChange: (AppTheme) -> Unit = {}
 ) {
     Column (
         modifier = modifier

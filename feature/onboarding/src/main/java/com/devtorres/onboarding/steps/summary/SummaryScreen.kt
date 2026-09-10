@@ -32,8 +32,8 @@ import compose.icons.fontawesomeicons.solid.DiceSix
 
 @Composable
 internal fun SummaryScreen(
-    modifier: Modifier,
-    onboardingState: OnboardingState
+    modifier: Modifier = Modifier,
+    onboardingState: OnboardingState = OnboardingState()
 ) {
     Box(
         modifier = modifier

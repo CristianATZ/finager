@@ -5,3 +5,8 @@ plugins {
 android {
     namespace = "com.devtorres.common"
 }
+
+dependencies {
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.runtime)
+}

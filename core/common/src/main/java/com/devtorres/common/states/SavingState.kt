@@ -1,5 +1,8 @@
 package com.devtorres.common.states
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 sealed interface SavingState {
     data object Idle : SavingState
     data object Loading : SavingState

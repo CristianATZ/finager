@@ -27,7 +27,7 @@ import com.devtorres.ui.components.cards.SelectableCard
 internal fun LanguageScreen(
     modifier: Modifier = Modifier,
     language: AppLanguage? = null,
-    onLanguageChange: (AppLanguage) -> Unit
+    onLanguageChange: (AppLanguage) -> Unit = {}
 ) {
     Column (
         modifier = modifier

@@ -14,23 +14,30 @@ object UiCommon {
     fun UpdateContentBarsColors(
         isDark: Boolean = false
     ) {
-        if(LocalInspectionMode.current) return
+        RunIfNotPreview {
+            val view = LocalView.current
 
-        val view = LocalView.current
-        DisposableEffect(Unit) {
-            val window = (view.context as Activity).window
-            val insetsController = WindowCompat.getInsetsController(window, view)
-            val originalStatusBarAppearance = insetsController.isAppearanceLightStatusBars
-            val originalNavigationBarAppearance = insetsController.isAppearanceLightNavigationBars
+            DisposableEffect(Unit) {
+                val window = (view.context as Activity).window
+                val insetsController = WindowCompat.getInsetsController(window, view)
+                val originalStatusBarAppearance = insetsController.isAppearanceLightStatusBars
+                val originalNavigationBarAppearance = insetsController.isAppearanceLightNavigationBars
 
-            insetsController.isAppearanceLightStatusBars = isDark
-            insetsController.isAppearanceLightNavigationBars = isDark
+                insetsController.isAppearanceLightStatusBars = isDark
+                insetsController.isAppearanceLightNavigationBars = isDark
 
-            onDispose {
-                insetsController.isAppearanceLightStatusBars = originalStatusBarAppearance
-                insetsController.isAppearanceLightNavigationBars = originalNavigationBarAppearance
+                onDispose {
+                    insetsController.isAppearanceLightStatusBars = originalStatusBarAppearance
+                    insetsController.isAppearanceLightNavigationBars = originalNavigationBarAppearance
+                }
             }
         }
     }
 
+    @Composable
+    inline fun RunIfNotPreview(
+        block: @Composable () -> Unit
+    ) {
+        if(!LocalInspectionMode.current) block()
+    }
 }
